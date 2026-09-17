@@ -1,0 +1,23 @@
+# Trainer-only material is kept outside this repository. Never add it here.
+CLAUDE.md
+trainer/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+
+# Checkpoint bundles and deck-check scratch files
+*.bundle
+presentation/.probe-*.html
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
