@@ -72,7 +72,7 @@
 <!-- 3 ---------------------------------------------------------------- -->
 <section class="slide">
   <header><div class="hgroup">
-    <p class="eyebrow">Rosetta stone</p>
+    <p class="eyebrow">Same code, four languages</p>
     <h2>The same record, in the language you know</h2>
   </div></header>
   <div class="body">
@@ -92,7 +92,7 @@ var high = incidents.Where(i =&gt; i.Severity == Severity.High)
 
 <i>// TypeScript</i>
 type Incident = { id: string; severity: Severity };
-const high = incidents.filter(i =&gt; i.severity === "high")
+const high = incidents.filter(i =&gt; i.severity === Severity.High)
                       .map(i =&gt; i.id);</pre>
       </div>
       <div class="card on">
