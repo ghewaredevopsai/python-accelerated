@@ -16,18 +16,15 @@ colleague has already written *"LGTM"*.
 2. **Accept it, as the engineer who clicked Merge would.** On a branch:
 
    ```bash
+   git add -A && git commit -m "before PR 42"      # your own work, safe
    git switch -c pr-42
-   git apply review/pr-42-ask-resilience.diff
+   cp -r review/pr-42/. .                          # the PR's versions of askops/api.py and askops/search.py
    python score.py
    ```
 
-   Your code differs from the code the PR was written against, so `git apply` may refuse. If it does, have
-   Copilot apply it instead, in **Agent** mode:
-
-   ```text
-   Apply the changes described in review/pr-42-ask-resilience.diff to this codebase, keeping their intent
-   exactly, including anything that looks like a mistake. Do not change tests. Then run python score.py.
-   ```
+   Do not use `git apply` on the `.diff`: it was made against the PR author's code, not yours, so it will not
+   apply. The files in `review/pr-42/` are the same change, written to work with any Mission 4 code. The
+   scoreboard should drop from **54** to **51**.
 
    Compare the red tests with your list. **Which of your problems did the tests catch, and which did
    they not?**

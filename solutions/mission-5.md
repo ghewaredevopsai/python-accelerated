@@ -14,18 +14,16 @@
 ## 1. Apply the PR, as the engineer who clicked Merge
 
 ```bash
+git add -A && git commit -m "before PR 42"
 git switch -c pr-42
-git apply review/pr-42-ask-resilience.diff
+cp -r review/pr-42/. .          # the PR's api.py and search.py, over yours
+python score.py
 ```
 
-If `git apply` refuses (your code differs from the PR's base), in Agent mode:
+`git apply review/pr-42-ask-resilience.diff` will **not** work: the diff was made against the PR author's code, and
+yours was written by your agent. The `.diff` is for reading in the review; `review/pr-42/` is for running.
 
-```text
-Apply the changes described in review/pr-42-ask-resilience.diff to this codebase, keeping their intent exactly,
-including anything that looks like a mistake. Do not change tests. Then run python score.py.
-```
-
-**Check:** five checks go red: `test_search_respects_limit`, `test_ask_consults_both_sources_concurrently`, and
+**Check:** the score drops from 54 to 51, and five checks go red: `test_search_respects_limit`, `test_ask_consults_both_sources_concurrently`, and
 three in Mission 5.
 
 ## 2. A second reviewer, after your own review

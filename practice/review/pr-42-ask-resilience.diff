@@ -27,9 +27,9 @@
  """The JSON API, mounted under /api."""
 -import asyncio
  import logging
+ from dataclasses import asdict
  
- from fastapi import APIRouter, Depends, HTTPException, Query, status
-@@ -48,15 +47,19 @@
+@@ -57,15 +56,19 @@
  @router.get("/ask", response_model=AskOut)
  async def ask(
      q: str = Query(min_length=3),
@@ -53,4 +53,4 @@
 +        runbook_hits, incident_hits = [], []
      return AskOut(
          query=q,
-         runbooks=[HitOut.model_validate(h) for h in runbook_hits],
+         runbooks=[HitOut(**asdict(h)) for h in runbook_hits],
