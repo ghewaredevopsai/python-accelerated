@@ -46,7 +46,7 @@ colleague has already written *"LGTM"*.
 
 ## Notice
 
-**Do steps 1 and 2 before you open this.** It discusses what is wrong with PR #42.
+**Do steps 1 and 2 before you open this**, or `solutions/mission-5/`. Both give the review away.
 
 <details>
 <summary>After you have run the scoreboard on PR #42</summary>

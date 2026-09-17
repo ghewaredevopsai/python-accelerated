@@ -13,6 +13,7 @@ python-accelerated/
   presentation/                      6 slide decks, one per tier
   hands-on/                          6 labs - start with hands-on/README.md
   practice/                          AskOps, the application every lab builds (copy it out first)
+  solutions/                         one working solution per mission - try first, compare after
   assets/                            slide theme and runner
 ```
 
@@ -53,7 +54,8 @@ index, **N** for notes, **F** for fullscreen, **Esc** to close an overlay.
   and will not write the answer. From Lab 3 you direct agent mode from a written spec and review what it writes.
 - **Read the PR.** Every tier ends with a short diff hiding one Python trap. Decide merge or block before anyone
   explains it.
-- **Nobody falls behind.** If you are stuck, ask your trainer for a checkpoint and start the next mission green.
+- **Nobody falls behind.** A solution for every mission is in [`solutions/`](solutions/README.md). Try first,
+  then compare, or copy the earlier missions to start the next one green.
 
 ---
 

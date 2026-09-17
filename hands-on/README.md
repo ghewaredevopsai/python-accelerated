@@ -16,8 +16,8 @@ two and a half hours of hands-on time.
   - **Builder** (Labs 3 and 4): agent mode, driven from a spec. You direct; it types; you review.
 - **Read before you run.** Every lab has a *read first* step. Reviewing Python you did not write is the
   skill this module is really about.
-- **Nobody falls behind.** Behind at the start of a lab? Ask for the checkpoint (see
-  [the practice README](../practice/README.md#stuck)) and start the next mission green.
+- **Nobody falls behind.** Behind at the start of a lab? Copy the earlier missions from
+  [`../solutions/`](../solutions/README.md) and start the next mission green. Try first, compare after.
 - **Copilot's output varies.** Two people running the same prompt get different code. The tests decide
   what is correct, not the transcript you are shown.
 

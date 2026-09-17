@@ -48,12 +48,15 @@ uvicorn askops.app:app --reload      # run it: http://127.0.0.1:8000  and the AP
 
 ## Stuck?
 
-Your trainer can give you a **checkpoint**: the codebase with every earlier mission already solved.
-Commit your own work first, then:
+Ask `/tutor` for the next hint first. If you are still stuck, or you have fallen behind, a working solution for
+every mission is in [`../solutions/`](../solutions/README.md). Copy the missions before the one you are starting,
+and it starts green:
 
 ```bash
-git fetch <path-to>/askops-checkpoints.bundle 'refs/tags/*:refs/tags/*'
-git switch -c catch-up mission-3-start
+git add -A && git commit -m "my work so far"
+git switch -c catch-up
+for m in 1 2 3; do cp -r <repo>/solutions/mission-$m/. .; done      # ready for mission 4
 ```
 
-Nobody has to fall behind. The next mission always starts green.
+Nobody has to fall behind. Try each mission yourself first, though: the solutions teach most when you compare
+them with your own attempt.
