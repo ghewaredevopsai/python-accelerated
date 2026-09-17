@@ -3,14 +3,11 @@
 Each function below is a small, real task an engineer does every week, written the way a
 Python developer would write it. The tests in tests/test_m1_drills.py are the spec.
 
-Rules for this mission:
-  * Use Copilot in TUTOR mode (type /tutor in Copilot Chat). It will explain and hint,
-    it will not write the answer for you. That is the point.
-  * Turn off inline completions for this file while you drill (Copilot status bar icon), or you
-    will be learning to press Tab, not Python.
-  * Run one drill at a time:  python score.py 1
-
-Replace each `raise NotImplementedError` with your implementation.
+How to work this mission (hands-on/lab-1-drills-with-a-tutor.md):
+  * Copilot writes the code. In Copilot Chat, type /tutor and the drill's name, e.g. word_counts.
+  * Before you generate a drill, predict how you would write it in your own language.
+  * After, answer the tutor's check question. Understanding the code is the goal, not the code.
+  * The scoreboard for this mission:  python score.py 1
 """
 from __future__ import annotations
 
@@ -38,13 +35,13 @@ def unique_services(incidents: list[dict]) -> list[str]:
 def high_severity_titles(incidents: list[dict]) -> list[str]:
     """Titles of incidents whose severity is "high", in their original order.
 
-    Write it as ONE list comprehension.
+    Must be ONE list comprehension.
     """
     raise NotImplementedError
 
 
 def index_by_id(items: list[dict]) -> dict[str, dict]:
-    """Map each item's "id" to the item. Write it as ONE dict comprehension."""
+    """Map each item's "id" to the item. Must be ONE dict comprehension."""
     raise NotImplementedError
 
 
@@ -66,7 +63,7 @@ def first_or_default(items, default=None):
 def add_tag(tag: str, tags=None) -> list[str]:
     """Return `tags` with `tag` appended. Calling it twice without `tags` must NOT share a list.
 
-    The signature is deliberately `tags=None`. Ask your tutor why `tags=[]` would be a bug.
+    The signature is deliberately `tags=None`. Why would `tags=[]` be a bug?
     """
     raise NotImplementedError
 

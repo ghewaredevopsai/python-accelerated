@@ -22,12 +22,39 @@ a cycle.
 
 ## Do
 
-1. `askops/errors.py` &mdash; `RunbookNotFound` and `DataError`, both subclasses of `AskOpsError`.
-2. `askops/store.py` &mdash; load incidents (skip bad ones with a `WARNING`), `get_runbook`, `incidents`,
-   `add_incident`, and turn file problems into `DataError`.
-3. `askops/search.py` &mdash; implement `search` from its docstring.
+Copilot writes the code; you steer and review. Commit first (`git add -A && git commit -m "before mission 2"`) so
+every change is visible in `git diff`. Then work through the three files in order, in **Agent** mode, a new chat
+each time:
 
-Use inline completions and Chat freely now. Run `python score.py 2` often.
+1. **Errors.**
+
+   ```text
+   Complete the TODO in askops/errors.py. Run python score.py 2 and report which checks still fail.
+   ```
+
+   Review: both classes subclass `AskOpsError`? `RunbookNotFound` keeps `.runbook_id`?
+
+2. **Store.**
+
+   ```text
+   Complete the TODOs in askops/store.py, one at a time. Do not change tests or other files.
+   Run python score.py 2 after each TODO.
+   ```
+
+   Review in `git diff`: one bad incident record is skipped **with a WARNING naming its id**, not the whole file;
+   `raise ... from` is used deliberately; logging uses `%s` arguments, not f-strings.
+
+3. **Search.**
+
+   ```text
+   Implement search() in askops/search.py exactly as its docstring specifies. Use set operations for scoring.
+   Run python score.py 2.
+   ```
+
+   Review: can you explain the scoring line out loud? Does it iterate `store.runbooks()`?
+
+If a check stays red, paste the failure into the same chat and ask the agent to explain the cause **before**
+it fixes it.
 
 ## Notice
 
@@ -47,6 +74,7 @@ Use inline completions and Chat freely now. Run `python score.py 2` often.
 
 ## Stretch
 
-Add a `@timed` decorator in `askops/timing.py` that logs how long a function took at `DEBUG`, and put it
-on `search`. It is six lines, and it is the pattern behind half the framework decorators you are about to
-use: `@router.get`, `@pytest.fixture`, `@tool`.
+Ask Copilot for a `@timed` decorator in `askops/timing.py` that logs how long a function took at `DEBUG`, applied
+to `search`. Then explain every line of it back to yourself, especially `functools.wraps` and `*args, **kwargs`.
+It is the pattern behind half the framework decorators you are about to use: `@router.get`, `@pytest.fixture`,
+`@tool`.

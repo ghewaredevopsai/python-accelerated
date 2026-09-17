@@ -17,22 +17,39 @@ colleague has already written *"LGTM"*.
 
    ```bash
    git switch -c pr-42
-   git apply review/pr-42-ask-resilience.diff    # if it does not apply to your code, make the same
-                                                 # four changes by hand - the point is the behaviour
+   git apply review/pr-42-ask-resilience.diff
    python score.py
+   ```
+
+   Your code differs from the code the PR was written against, so `git apply` may refuse. If it does, have
+   Copilot apply it instead, in **Agent** mode:
+
+   ```text
+   Apply the changes described in review/pr-42-ask-resilience.diff to this codebase, keeping their intent
+   exactly, including anything that looks like a mistake. Do not change tests. Then run python score.py.
    ```
 
    Compare the red tests with your list. **Which of your problems did the tests catch, and which did
    they not?**
-3. **Reject it.** Leave a one-paragraph review comment in `review/my-review.md`: what is wrong, the test
-   that proves it, and what to do instead. Then throw the change away:
+3. **Reject it.** Write a one-paragraph review in `review/my-review.md`: what is wrong, the test that proves it,
+   and what to do instead. The findings must be yours; you may ask Copilot to tighten the wording. Then throw the
+   change away. It was never committed, so undo it **before** switching, or it follows you onto `main`:
 
    ```bash
+   git restore askops tests          # your untracked review file stays
    git switch main && git branch -D pr-42
    ```
 
-4. **Do it properly.** Read *Mission 5 &mdash; the failure contract* at the bottom of `docs/api-spec.md`,
-   and implement it in `api.py` yourself (about six lines). `python score.py` must be **56/56**.
+4. **Do it properly.** Read *Mission 5 &mdash; the failure contract* at the bottom of `docs/api-spec.md`. Then, in
+   **Agent** mode:
+
+   ```text
+   Implement the Mission 5 failure contract in docs/api-spec.md, in askops/api.py only.
+   Do not modify tests. Finish by running python score.py.
+   ```
+
+   Review the diff against your own review from step 3: it catches `AskOpsError` only, logs with
+   `logger.exception`, and returns 503 with the exact detail. `python score.py` must be **56/56**.
 5. **Ship it with git hygiene.**
 
    ```bash
@@ -46,7 +63,7 @@ colleague has already written *"LGTM"*.
 
 ## Notice
 
-**Do steps 1 and 2 before you open this**, or `solutions/mission-5/`. Both give the review away.
+**Do steps 1 and 2 before you open this**, or `solutions/mission-5.md`. Both give the review away.
 
 <details>
 <summary>After you have run the scoreboard on PR #42</summary>
@@ -68,4 +85,5 @@ explains the *why*, and you can say which of your review findings no test would 
 
 ## Stretch
 
-Write the missing test: `limit` above 20 must be a 422. Watch it fail on PR #42's version.
+Have Copilot write the missing test: `limit` above 20 must be a 422. Review it, then confirm it fails on PR
+#42's version and passes on yours.

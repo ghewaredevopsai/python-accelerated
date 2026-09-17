@@ -13,7 +13,7 @@ python-accelerated/
   presentation/                      6 slide decks, one per tier
   hands-on/                          6 labs - start with hands-on/README.md
   practice/                          AskOps, the application every lab builds (copy it out first)
-  solutions/                         one working solution per mission - try first, compare after
+  solutions/                         one working solution per mission - solve with Copilot first, compare after
   assets/                            slide theme and runner
 ```
 
@@ -50,12 +50,13 @@ index, **N** for notes, **F** for fullscreen, **Esc** to close an overlay.
 ## How the labs work
 
 - **The tests are the spec.** Each mission ships failing tests; `python score.py` is your scoreboard.
-- **Copilot as tutor, then as builder.** A `/tutor` prompt explains Python against the language you already know
-  and will not write the answer. From Lab 3 you direct agent mode from a written spec and review what it writes.
+- **Copilot writes the code; you never implement by hand.** A `/tutor` prompt explains each Python idea against
+  the language you already know, writes the code and checks you understood it. From Lab 2 you direct agent mode
+  from a spec and review every diff.
 - **Read the PR.** Every tier ends with a short diff hiding one Python trap. Decide merge or block before anyone
   explains it.
-- **Nobody falls behind.** A solution for every mission is in [`solutions/`](solutions/README.md). Try first,
-  then compare, or copy the earlier missions to start the next one green.
+- **Nobody falls behind.** A solution for every mission is in [`solutions/`](solutions/README.md). Solve with
+  Copilot first, then compare, or copy the earlier missions to start the next one green.
 
 ---
 

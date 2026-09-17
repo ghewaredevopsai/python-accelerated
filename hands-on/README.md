@@ -9,15 +9,17 @@ two and a half hours of hands-on time.
 - **The tests are the spec.** Each mission ships with failing tests. Nobody tells you to "write a
   function that...". You run `python score.py N`, read what is red, and make it green. That is how you
   will work with an AI agent at your desk too.
-- **Two Copilot modes, switched on purpose.**
-  - **Tutor** (Lab 1): type `/tutor` in Copilot Chat. It explains Python by contrast with the language
-    you already know, and it will not write the answer. You are building the reading skill that every
+- **Copilot writes the code. You never implement by hand.** What you practise is everything around it:
+  predicting, directing, reading, explaining and deciding.
+  - **Tutor** (Lab 1): `/tutor` explains the Python idea against the language you already know, writes the
+    code, runs the tests and asks you a question you must answer. You are building the reading skill every
     later lab depends on.
-  - **Builder** (Labs 3 and 4): agent mode, driven from a spec. You direct; it types; you review.
+  - **Builder** (Labs 2 to 5): agent mode, driven from a spec or a TODO, with the tests as the finish line.
+    You direct; it types; you review every diff.
 - **Read before you run.** Every lab has a *read first* step. Reviewing Python you did not write is the
   skill this module is really about.
 - **Nobody falls behind.** Behind at the start of a lab? Copy the earlier missions from
-  [`../solutions/`](../solutions/README.md) and start the next mission green. Try first, compare after.
+  [`../solutions/`](../solutions/README.md) and start the next mission green. Solve it with Copilot first, then compare.
 - **Copilot's output varies.** Two people running the same prompt get different code. The tests decide
   what is correct, not the transcript you are shown.
 

@@ -67,4 +67,5 @@ with a message that says *why*, not just *what*.
 
 ## Stretch
 
-Ask the agent to add `GET /api/incidents?severity=high`. Before it starts, write the test yourself.
+Add `GET /api/incidents?severity=high`, test first: ask the agent to write **only the test** and stop. Review
+the test, run it red, then ask for the implementation.

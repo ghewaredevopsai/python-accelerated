@@ -127,16 +127,16 @@ footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
     <table>
       <tr><th>Lab</th><th>What you do</th><th>Copilot as</th><th>Checks</th></tr>
       <tr><td><b>0</b></td><td>Copy the practice repo, create a venv, see the scoreboard red</td><td>Tutor</td><td>&mdash;</td></tr>
-      <tr><td><b>1</b></td><td>Fifteen drills: collections, defaults, errors, dataclasses, files</td><td>Tutor &mdash; hints, never answers</td><td>19</td></tr>
-      <tr><td><b>2</b></td><td>Domain errors, a JSON store that survives bad records, keyword search</td><td>Assistant</td><td>14</td></tr>
+      <tr><td><b>1</b></td><td>Fifteen drills: collections, defaults, errors, dataclasses, files</td><td>Tutor &mdash; explains, writes, checks you understood</td><td>19</td></tr>
+      <tr><td><b>2</b></td><td>Domain errors, a JSON store that survives bad records, keyword search</td><td>Builder &mdash; agent mode</td><td>14</td></tr>
       <tr><td><b>3</b></td><td>The JSON API from a written spec: pydantic contracts, 404/422, concurrent async I/O</td><td>Builder &mdash; agent mode</td><td>11</td></tr>
       <tr><td><b>4</b></td><td>A server-rendered page with htmx: ask, open an incident, no reload</td><td>Builder &mdash; agent mode</td><td>8</td></tr>
-      <tr><td><b>5</b></td><td>Review a plausible AI pull request, prove it wrong with tests, reject it, ship the right fix</td><td>Reviewer</td><td>4</td></tr>
+      <tr><td><b>5</b></td><td>Review a plausible AI pull request, prove it wrong with tests, reject it, ship the right fix</td><td>Reviewer, then builder</td><td>4</td></tr>
     </table>
   </div>
   <div class="note">
     <b>The tests are the spec.</b> <code>python score.py</code> prints a <code>[PASS]</code>/<code>[FAIL]</code> line per check and a score.
-    No lab tells you what to type; every lab tells you what "done" means &mdash; exactly how you will direct an agent at work.
+    Copilot writes all the code; you direct it, read it and decide. Every lab tells you what "done" means &mdash; exactly how you will direct an agent at work.
     Fall behind, and <a href="solutions/README.md">solutions/</a> has a working solution for every mission, so you can start the next one green.
   </div>
 </section>

@@ -13,7 +13,7 @@ What you will be able to do at the end of the module, how the module checks it, 
 | 5 | **Use async correctly**: concurrent awaits with `gather`, and never blocking I/O inside `async def` | Lab 3 timing check; tier 3 PR slide |
 | 6 | **Build a server-rendered web page** on the same app, with htmx, safe templating and one shared validation contract | Lab 4 (8 checks, including XSS escaping); used in a browser |
 | 7 | **Test a Python service** with pytest fixtures, `TestClient` and dependency overrides | Read and run the 56 checks; the Lab 3 and Lab 5 stretch goals write new ones |
-| 8 | **Direct Copilot deliberately**: tutor mode to learn, spec-first agent mode to build, with the tests as the finish line | Labs 1, 3, 4 |
+| 8 | **Direct Copilot deliberately**: a tutor that explains before it writes, spec-first agent mode to build, tests as the finish line &mdash; with no code written by hand | Labs 1&ndash;5 |
 | 9 | **Review and reject AI-written Python** that passes tests, and say which findings no test caught | Lab 5: review PR #42, then prove it wrong with the tests |
 | 10 | **Ship with git hygiene**: a branch per concern, checkpoint commits around agent work, messages that say why | Lab 5 |
 

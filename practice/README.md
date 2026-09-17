@@ -7,7 +7,7 @@ and a web page. Every lab in this module is done here, in your own editor, with 
 It starts **unfinished on purpose**. Five missions finish it, and each one has failing tests that
 describe what "done" means:
 
-| Mission | You write | Spec | Score |
+| Mission | Copilot writes, you review | Spec | Score |
 |---|---|---|---|
 | 1 &mdash; Python drills | `katas/drills.py` | the docstrings | `python score.py 1` |
 | 2 &mdash; Core package | `askops/errors.py`, `store.py`, `search.py` | the TODOs | `python score.py 2` |
@@ -48,15 +48,16 @@ uvicorn askops.app:app --reload      # run it: http://127.0.0.1:8000  and the AP
 
 ## Stuck?
 
-Ask `/tutor` for the next hint first. If you are still stuck, or you have fallen behind, a working solution for
-every mission is in [`../solutions/`](../solutions/README.md). Copy the missions before the one you are starting,
+Paste the failing check into Copilot Chat and ask it to explain the cause before it fixes anything. If you are
+still stuck, or you have fallen behind, a working solution for every mission is in
+[`../solutions/`](../solutions/README.md). Copy the missions before the one you are starting,
 and it starts green:
 
 ```bash
 git add -A && git commit -m "my work so far"
 git switch -c catch-up
-for m in 1 2 3; do cp -r <repo>/solutions/mission-$m/. .; done      # ready for mission 4
+for m in 1 2 3; do cp -r <repo>/solutions/code/mission-$m/. .; done      # ready for mission 4
 ```
 
-Nobody has to fall behind. Try each mission yourself first, though: the solutions teach most when you compare
-them with your own attempt.
+Nobody has to fall behind. Solve each mission with Copilot first, though: the solutions teach most when you
+compare them with what your agent produced.

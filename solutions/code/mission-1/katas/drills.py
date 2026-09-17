@@ -1,4 +1,4 @@
-"""Mission 1 - one possible solution. Try the drills yourself first: see solutions/README.md."""
+"""Mission 1 - one possible solution. Solve the drills with Copilot first: see solutions/README.md."""
 from __future__ import annotations
 
 from collections import Counter, defaultdict
