@@ -54,6 +54,41 @@
   var notesOv = document.getElementById('notesOv');
   var notesBody = document.getElementById('notesBody');
 
+  /* ---- syntax highlighting for every <pre> ---------------------------- */
+  /* Language-agnostic and deliberately small: strings, comments, decorators,
+     numbers, keywords. Text already inside a deck's own <i>/<u>/<s>/<em>
+     marks is left alone, so hand-made emphasis always wins. */
+  var KW = ('def class return if elif else for in while import from as with try except finally raise ' +
+    'async await lambda yield not and or is None True False pass break continue del assert self ' +
+    'public private static var const let function new this null true false type interface record ' +
+    'string int bool void using extends implements endfor endif block include').split(' ');
+  var KWSET = {}; KW.forEach(function (w) { KWSET[w] = 1; });
+  var TOKEN = /("""|"(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*')|((?:#|\/\/)[^\n]*)|(@[A-Za-z_][\w.]*)|(\b\d+(?:\.\d+)?\b)|(\b[A-Za-z_]\w*\b)/g;
+  function highlight(node) {
+    var text = node.nodeValue, frag = document.createDocumentFragment(), last = 0, m, cls;
+    TOKEN.lastIndex = 0;
+    while ((m = TOKEN.exec(text))) {
+      if (m[1]) cls = 's'; else if (m[2]) cls = 'c'; else if (m[3]) cls = 'd';
+      else if (m[4]) cls = 'n'; else cls = KWSET[m[5]] ? 'k' : null;
+      if (!cls) continue;
+      if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+      var sp = document.createElement('span'); sp.className = cls; sp.textContent = m[0];
+      frag.appendChild(sp); last = m.index + m[0].length;
+    }
+    if (!last) return;
+    if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag, node);
+  }
+  [].forEach.call(document.querySelectorAll('.slide pre'), function (pre) {
+    var walker = document.createTreeWalker(pre, NodeFilter.SHOW_TEXT, null, false), nodes = [], n;
+    while ((n = walker.nextNode())) {
+      var p = n.parentNode, skip = false;
+      while (p && p !== pre) { if (/^(I|U|S|EM)$/.test(p.tagName)) { skip = true; break; } p = p.parentNode; }
+      if (!skip) nodes.push(n);
+    }
+    nodes.forEach(highlight);
+  });
+
   /* ---- footer on every slide ----------------------------------------- */
   slides.forEach(function (s, i) {
     if (s.querySelector(':scope > footer')) return;
@@ -65,6 +100,57 @@
       '<span>' + deck + ' &middot; Trainer: ' + BRAND.trainer + '</span>';
     s.appendChild(f);
   });
+
+  /* ---- fit each slide's content to its space --------------------------- */
+  /* Decks are read from across a room, so every slide's .body is zoomed to the
+     largest size at which nothing overflows and no code line is clipped:
+     sparse slides grow, dense ones shrink a little. Computed once per slide,
+     the first time it is shown (a hidden slide cannot be measured). */
+  var FIT_MIN = 0.8, FIT_MAX = 1.45;
+  function overflowing(sl) {
+    if (sl.scrollHeight > sl.clientHeight + 1 || sl.scrollWidth > sl.clientWidth + 1) return true;
+    var box = sl.getBoundingClientRect(), foot = sl.querySelector(':scope > footer');
+    if (foot && foot.getBoundingClientRect().bottom > box.bottom + 1) return true;
+    var head = sl.querySelector(':scope > header');                 // unzoomed: marks the content edge
+    var edge = head ? head.getBoundingClientRect().right : box.right;
+    var top = head ? head.getBoundingClientRect().bottom : box.top;
+    var bottom = foot ? foot.getBoundingClientRect().top : box.bottom;
+    var parts = sl.querySelectorAll(':scope > .body > *, :scope > .body .card, :scope > .body table, :scope > .body pre, :scope > .body svg');
+    for (var j = 0; j < parts.length; j++) {
+      var r = parts[j].getBoundingClientRect();
+      if (r.right > edge + 1 || r.top < top - 1 || r.bottom > bottom + 1) return true;
+    }
+    var boxes = sl.querySelectorAll(':scope > .body');   /* would it need to scroll? */
+    for (var q = 0; q < boxes.length; q++) {
+      if (boxes[q].scrollHeight > boxes[q].clientHeight + 1 || boxes[q].scrollWidth > boxes[q].clientWidth + 1) return true;
+    }
+    var pres = sl.querySelectorAll('pre');
+    for (var i = 0; i < pres.length; i++) {
+      if (pres[i].scrollWidth > pres[i].clientWidth + 1) return true;
+      if (pres[i].getBoundingClientRect().right > edge + 1) return true;
+    }
+    return false;
+  }
+  function fitSlide(sl) {
+    var body = sl.querySelector(':scope > .body');
+    if (!body || sl.getAttribute('data-fitted')) return;
+    var lo = FIT_MIN, hi = FIT_MAX;
+    body.style.zoom = hi;
+    if (overflowing(sl)) {
+      for (var k = 0; k < 9; k++) {
+        var mid = (lo + hi) / 2;
+        body.style.zoom = mid;
+        if (overflowing(sl)) hi = mid; else lo = mid;
+      }
+      body.style.zoom = lo;
+    }
+    /* leave slack, then confirm: a scrollbar shown mid-search can skew the last measurement */
+    var z = parseFloat(body.style.zoom) * 0.97;
+    body.style.zoom = z;
+    while (overflowing(sl) && z > FIT_MIN) { z = Math.max(FIT_MIN, z - 0.03); body.style.zoom = z; }
+    sl.setAttribute('data-fitted', body.style.zoom);
+  }
+  window.__fitSlide = fitSlide;
 
   /* ---- index --------------------------------------------------------- */
   function titleOf(h) {
@@ -95,6 +181,7 @@
   function show(n) {
     cur = Math.max(0, Math.min(slides.length - 1, n));
     slides.forEach(function (s, i) { s.classList.toggle('active', i === cur); });
+    fitSlide(slides[cur]);
     links.forEach(function (a, i) { a.classList.toggle('cur', i === cur); });
     bar.style.width = ((cur + 1) / slides.length * 100) + '%';
     count.textContent = (cur + 1) + ' / ' + slides.length;
@@ -151,4 +238,14 @@
   fit();
   var m = /^#\/(\d+)/.exec(location.hash);
   show(m ? parseInt(m[1], 10) - 1 : 0);
+
+  /* a fit measured before the final font is in use is wrong: measure again */
+  function refit() {
+    slides.forEach(function (s) { s.removeAttribute('data-fitted'); });
+    fitSlide(slides[cur]);
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(refit);
+  window.addEventListener('load', refit);
+  var resizeTimer;
+  window.addEventListener('resize', function () { clearTimeout(resizeTimer); resizeTimer = setTimeout(refit, 150); });
 })();

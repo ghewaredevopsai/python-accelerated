@@ -34,29 +34,29 @@
   <div class="body">
     <svg class="dg" viewBox="0 0 1180 190" style="max-height:30vh">
       <rect class="box" x="10" y="40" width="200" height="96" rx="7"/>
-      <text x="110" y="70" text-anchor="middle" class="t-acc" font-weight="700" font-size="15">1 &#183; Drills</text>
-      <text x="110" y="95" text-anchor="middle" class="t-dim" font-size="13">collections, errors,</text>
-      <text x="110" y="114" text-anchor="middle" class="t-dim" font-size="13">dataclasses</text>
+      <text x="110" y="70" text-anchor="middle" class="t-acc" font-weight="700" font-size="19.5">1 &#183; Drills</text>
+      <text x="110" y="95" text-anchor="middle" class="t-dim" font-size="16.9">collections, errors,</text>
+      <text x="110" y="114" text-anchor="middle" class="t-dim" font-size="16.9">dataclasses</text>
       <rect class="box" x="245" y="40" width="200" height="96" rx="7"/>
-      <text x="345" y="70" text-anchor="middle" class="t-acc" font-weight="700" font-size="15">2 &#183; Core</text>
-      <text x="345" y="95" text-anchor="middle" class="t-dim" font-size="13">package, logging,</text>
-      <text x="345" y="114" text-anchor="middle" class="t-dim" font-size="13">search</text>
+      <text x="345" y="70" text-anchor="middle" class="t-acc" font-weight="700" font-size="19.5">2 &#183; Core</text>
+      <text x="345" y="95" text-anchor="middle" class="t-dim" font-size="16.9">package, logging,</text>
+      <text x="345" y="114" text-anchor="middle" class="t-dim" font-size="16.9">search</text>
       <rect class="box-b" x="480" y="40" width="200" height="96" rx="7"/>
-      <text x="580" y="70" text-anchor="middle" class="t-blue" font-weight="700" font-size="15">3 &#183; API</text>
-      <text x="580" y="95" text-anchor="middle" class="t-dim" font-size="13">FastAPI, pydantic,</text>
-      <text x="580" y="114" text-anchor="middle" class="t-dim" font-size="13">async I/O</text>
+      <text x="580" y="70" text-anchor="middle" class="t-blue" font-weight="700" font-size="19.5">3 &#183; API</text>
+      <text x="580" y="95" text-anchor="middle" class="t-dim" font-size="16.9">FastAPI, pydantic,</text>
+      <text x="580" y="114" text-anchor="middle" class="t-dim" font-size="16.9">async I/O</text>
       <rect class="box-b" x="715" y="40" width="200" height="96" rx="7"/>
-      <text x="815" y="70" text-anchor="middle" class="t-blue" font-weight="700" font-size="15">4 &#183; Web page</text>
-      <text x="815" y="95" text-anchor="middle" class="t-dim" font-size="13">Jinja2 + htmx,</text>
-      <text x="815" y="114" text-anchor="middle" class="t-dim" font-size="13">no JS build</text>
+      <text x="815" y="70" text-anchor="middle" class="t-blue" font-weight="700" font-size="19.5">4 &#183; Web page</text>
+      <text x="815" y="95" text-anchor="middle" class="t-dim" font-size="16.9">Jinja2 + htmx,</text>
+      <text x="815" y="114" text-anchor="middle" class="t-dim" font-size="16.9">no JS build</text>
       <rect class="box-g" x="950" y="40" width="220" height="96" rx="7"/>
-      <text x="1060" y="70" text-anchor="middle" class="t-good" font-weight="700" font-size="15">5 &#183; Review &amp; ship</text>
-      <text x="1060" y="95" text-anchor="middle" class="t-dim" font-size="13">reject a bad PR,</text>
-      <text x="1060" y="114" text-anchor="middle" class="t-dim" font-size="13">open a good one</text>
+      <text x="1060" y="70" text-anchor="middle" class="t-good" font-weight="700" font-size="19.5">5 &#183; Review &amp; ship</text>
+      <text x="1060" y="95" text-anchor="middle" class="t-dim" font-size="16.9">reject a bad PR,</text>
+      <text x="1060" y="114" text-anchor="middle" class="t-dim" font-size="16.9">open a good one</text>
       <path class="wire-a" d="M210 88 H245 M445 88 H480 M680 88 H715 M915 88 H950"/>
-      <text x="345" y="170" text-anchor="middle" class="t-faint" font-size="13">Copilot: TUTOR &#8212; explains, writes, checks you</text>
-      <text x="815" y="170" text-anchor="middle" class="t-faint" font-size="13">Copilot: BUILDER &#8212; agent mode from a spec</text>
-      <text x="580" y="22" text-anchor="middle" class="t-faint" font-size="13">AskOps: runbooks, incidents, and a way to ask</text>
+      <text x="345" y="170" text-anchor="middle" class="t-faint" font-size="16.9">Copilot: TUTOR &#8212; explains, writes, checks you</text>
+      <text x="815" y="170" text-anchor="middle" class="t-faint" font-size="16.9">Copilot: BUILDER &#8212; agent mode from a spec</text>
+      <text x="580" y="22" text-anchor="middle" class="t-faint" font-size="16.9">AskOps: runbooks, incidents, and a way to ask</text>
     </svg>
     <div class="grid3">
       <div class="card on"><h3>Tests are the spec</h3><p>Every mission ships failing tests.
@@ -79,7 +79,7 @@
     <div class="grid2 fill">
       <div class="card">
         <h3>Java 21 &middot; C# 12 &middot; TypeScript</h3>
-<pre class="sm"><i>// Java</i>
+<pre><i>// Java</i>
 public record Incident(String id, Severity severity) {}
 var high = incidents.stream()
     .filter(i -&gt; i.severity() == Severity.HIGH)
@@ -87,24 +87,27 @@ var high = incidents.stream()
 
 <i>// C#</i>
 public record Incident(string Id, Severity Severity);
-var high = incidents.Where(i =&gt; i.Severity == Severity.High)
-                    .Select(i =&gt; i.Id).ToList();
+var high = incidents
+    .Where(i =&gt; i.Severity == Severity.High)
+    .Select(i =&gt; i.Id).ToList();
 
 <i>// TypeScript</i>
 type Incident = { id: string; severity: Severity };
-const high = incidents.filter(i =&gt; i.severity === Severity.High)
-                      .map(i =&gt; i.id);</pre>
+const high = incidents
+    .filter(i =&gt; i.severity === Severity.High)
+    .map(i =&gt; i.id);</pre>
       </div>
       <div class="card on">
         <h3>Python 3.12+</h3>
-<pre class="sm"><b>from dataclasses import dataclass</b>
+<pre><b>from dataclasses import dataclass</b>
 
 <b>@dataclass(frozen=True)</b>
 class Incident:
     id: str
     severity: Severity
 
-high = [<u>i.id</u> <b>for</b> i <b>in</b> incidents <b>if</b> i.severity == Severity.HIGH]</pre>
+high = [<u>i.id</u> <b>for</b> i <b>in</b> incidents
+        <b>if</b> i.severity == Severity.HIGH]</pre>
         <ul style="margin-top:10px">
           <li><b>Indentation is the block.</b> No braces, no semicolons</li>
           <li><b>A decorator</b> writes <code>__init__</code>, <code>__eq__</code>, <code>__repr__</code> for you</li>

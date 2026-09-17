@@ -36,7 +36,7 @@
     <div class="grid-1-2 fill">
       <div class="card">
         <h3>The AskOps layout</h3>
-<pre class="sm">askops/                <i># repo root</i>
+<pre>askops/                <i># repo root</i>
   pyproject.toml
   <b>askops/</b>              <i># the package</i>
     __init__.py
@@ -52,9 +52,12 @@
       </div>
       <div class="card">
         <h3>What to know when reading imports</h3>
-<pre class="sm">from askops.models import Incident, Severity   <i># absolute - prefer</i>
-from askops import sources                     <i># the module itself</i>
-import logging                                 <i># stdlib first, then third party, then yours</i></pre>
+<pre><i># stdlib first, then third party, then yours</i>
+import logging
+<i># absolute imports - prefer them</i>
+from askops.models import Incident, Severity
+<i># or the module itself</i>
+from askops import sources</pre>
         <ul style="margin-top:9px">
           <li><b>Importing runs the file.</b> Top-level code executes once, on first import &mdash; keep it to definitions</li>
           <li><b>No access modifiers.</b> <code>_name</code> means "private by convention"; nothing enforces it</li>
@@ -78,7 +81,7 @@ import logging                                 <i># stdlib first, then third par
     <div class="grid2 fill">
       <div class="card on">
         <h3>A domain hierarchy</h3>
-<pre class="sm">class AskOpsError(Exception):
+<pre>class AskOpsError(Exception):
     """Everything AskOps raises on purpose."""
 
 class RunbookNotFound(AskOpsError):
@@ -116,10 +119,11 @@ def get_runbook(self, runbook_id):
     <h2>Three constructs you will read on every page</h2>
   </div></header>
   <div class="body">
-    <div class="grid3 fill">
+    <div class="grid2 fill">
+      <div style="display:flex;flex-direction:column;gap:12px">
       <div class="card">
         <h3><code>with</code> &mdash; cleanup, guaranteed</h3>
-<pre class="sm"><b>with</b> open(path, encoding="utf-8") <b>as</b> fh:
+<pre><b>with</b> open(path, encoding="utf-8") <b>as</b> fh:
     data = json.load(fh)
 <i># closed here, even on exception</i>
 
@@ -130,36 +134,33 @@ def get_runbook(self, runbook_id):
       </div>
       <div class="card">
         <h3>logging &mdash; not print</h3>
-<pre class="sm">logger = logging.getLogger(<b>__name__</b>)
+<pre>logger = logging.getLogger(<b>__name__</b>)
 
 logger.warning(<u>"skipping %s: %s"</u>, rid, exc)
 logger.exception(<u>"ask failed"</u>)
 <i># ERROR + the traceback</i></pre>
-        <ul style="margin-top:8px">
-          <li>One logger per module, named by module</li>
-          <li><b>%-args, not f-strings</b>: formatted only if emitted</li>
-          <li>Configure once, in <code>app.py</code></li>
-        </ul>
+        <p style="margin-top:8px">One per module. <b>%-args, not f-strings</b>: formatted only if emitted.</p>
+      </div>
       </div>
       <div class="card blue">
         <h3>Decorators &mdash; functions that wrap</h3>
-<pre class="sm">def timed(fn):
+<pre>def timed(fn):
     @functools.wraps(fn)
     def wrapper(*args, **kwargs):
         t = time.perf_counter()
         try:
             return fn(*args, **kwargs)
         finally:
-            logger.debug("%s %.3fs", fn.__name__,
-                         time.perf_counter() - t)
+            took = time.perf_counter() - t
+            logger.debug("%s %.3fs", fn.__name__, took)
     return wrapper
 
 <b>@timed</b>
 def search(...): ...</pre>
+        <p style="margin-top:10px"><code>@router.get</code>, <code>@pytest.fixture</code>, <code>@dataclass</code>: every
+        framework decorator is this pattern &mdash; a function that takes yours and returns something better.</p>
       </div>
     </div>
-    <div class="takeaway">Every framework decorator you meet next &mdash; <code>@router.get</code>, <code>@pytest.fixture</code>,
-      <code>@dataclass</code> &mdash; is this pattern: a function that takes yours and returns something better.</div>
   </div>
   <div class="notes"><p><code>*args, **kwargs</code> means "any positional and any keyword arguments". The <code>timed</code> decorator is Lab 2's stretch goal.</p></div>
 </section>
@@ -173,7 +174,7 @@ def search(...): ...</pre>
   <div class="body">
     <div class="grid-2-1 fill">
       <div class="card on">
-<pre class="sm">import pytest
+<pre>import pytest
 
 <i># conftest.py - available to every test, no import</i>
 <b>@pytest.fixture</b>

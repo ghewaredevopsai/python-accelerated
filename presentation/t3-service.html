@@ -33,38 +33,44 @@
     <h2>The type hints are the routing, the validation and the docs</h2>
   </div></header>
   <div class="body">
-    <div class="grid-2-1 fill">
+    <div class="grid2 fill">
       <div class="card on">
-<pre class="sm">from fastapi import APIRouter, Depends, HTTPException, Query, status
+<pre>from fastapi import APIRouter, Depends
 
 router = APIRouter()
 
-@router.get(<u>"/runbooks/{runbook_id}"</u>, <b>response_model=RunbookOut</b>)
-def get_runbook(<b>runbook_id: str</b>,                        <i># from the path</i>
-                <b>store: Store = Depends(get_store)</b>):      <i># injected</i>
+@router.get(<u>"/runbooks/{runbook_id}"</u>,
+            <b>response_model=RunbookOut</b>)
+def get_runbook(<b>runbook_id: str</b>,
+                <b>store: Store = Depends(get_store)</b>):
     try:
-        return RunbookOut.of(store.get_runbook(runbook_id))
+        return RunbookOut.of(
+            store.get_runbook(runbook_id))
     except RunbookNotFound as exc:
-        raise <b>HTTPException(404, detail=str(exc))</b> from exc
-
-@router.post(<u>"/incidents"</u>, response_model=IncidentOut, <b>status_code=201</b>)
-def create_incident(<b>body: IncidentIn</b>,                     <i># JSON body, validated</i>
+        raise <b>HTTPException(404, str(exc))</b> from exc</pre>
+      </div>
+      <div class="card on">
+<pre>@router.post(<u>"/incidents"</u>, <b>status_code=201</b>,
+             response_model=IncidentOut)
+def create_incident(<b>body: IncidentIn</b>,
                     store: Store = Depends(get_store)):
-    return store.add_incident(body.title, body.severity, body.service)
+    return store.add_incident(
+        body.title, body.severity, body.service)
 
 @router.get(<u>"/ask"</u>)
-async def ask(<b>q: str = Query(min_length=3)</b>, limit: int = Query(5, ge=1, le=20)): ...</pre>
+async def ask(<b>q: str = Query(min_length=3)</b>,
+              limit: int = Query(5, ge=1, le=20)):
+    ...</pre>
       </div>
-      <div class="card">
-        <h3>Map it to what you know</h3>
-        <ul>
-          <li><code>@router.get</code> ~ <code>@GetMapping</code> / <code>MapGet</code></li>
-          <li>Where a parameter comes from is decided by <b>its type</b>: path name, pydantic model = body, else query</li>
-          <li><code>Depends</code> ~ constructor injection, overridable in tests</li>
-          <li><code>response_model</code> filters and documents the output</li>
-          <li><b>Free:</b> 422 on bad input, and OpenAPI at <code>/docs</code></li>
-        </ul>
-      </div>
+    </div>
+    <div class="card">
+      <ul style="columns:2;column-gap:36px">
+        <li><code>@router.get</code> ~ <code>@GetMapping</code> / <code>MapGet</code></li>
+        <li><b>Its type</b> decides where a parameter comes from: path, body (a model), else query</li>
+        <li><code>Depends</code> ~ constructor injection, overridable in tests</li>
+        <li><code>response_model</code> filters and documents the output</li>
+        <li><b>Free:</b> 422 on bad input, and OpenAPI at <code>/docs</code></li>
+      </ul>
     </div>
   </div>
   <div class="notes"><p>Translate at the edge: <code>HTTPException</code> belongs in <code>api.py</code> only. Raised inside <code>store.py</code>, it makes the domain depend on the web framework.</p></div>
@@ -80,11 +86,11 @@ async def ask(<b>q: str = Query(min_length=3)</b>, limit: int = Query(5, ge=1, l
     <div class="grid2 fill">
       <div class="card on">
         <h3>The wire contract</h3>
-<pre class="sm">from pydantic import BaseModel, ConfigDict, Field
+<pre>from pydantic import BaseModel, ConfigDict, Field
 
 class IncidentIn(BaseModel):
     title: str = <b>Field(min_length=5, max_length=120)</b>
-    severity: <b>Severity</b>            <i># enum: anything else is a 422</i>
+    severity: <b>Severity</b>   <i># enum: else 422</i>
     service: str = Field(min_length=1)
     runbook_id: str | None = None
 
@@ -93,16 +99,16 @@ class IncidentOut(BaseModel):
     id: str
     title: str
     severity: Severity
-    opened_at: datetime              <i># ISO string on the wire</i></pre>
+    opened_at: datetime</pre>
         <p style="margin-top:8px"><b>Dataclass = domain. pydantic = wire.</b> They change for different reasons.</p>
       </div>
       <div class="card bad">
         <h3>The hallucination to catch: v1 syntax</h3>
         <table class="tight">
           <tr><th>pydantic v1 &mdash; block</th><th>v2 &mdash; merge</th></tr>
-          <tr><td><code>class Config: orm_mode = True</code></td><td><code>model_config = ConfigDict(from_attributes=True)</code></td></tr>
-          <tr><td><code>Model.parse_obj(d)</code></td><td><code>Model.model_validate(d)</code></td></tr>
-          <tr><td><code>m.dict()</code> / <code>m.json()</code></td><td><code>m.model_dump()</code> / <code>model_dump_json()</code></td></tr>
+          <tr><td><code>class Config: orm_mode</code></td><td><code>ConfigDict(from_attributes=True)</code></td></tr>
+          <tr><td><code>parse_obj(d)</code></td><td><code>model_validate(d)</code></td></tr>
+          <tr><td><code>.dict()</code>, <code>.json()</code></td><td><code>.model_dump()</code>, <code>.model_dump_json()</code></td></tr>
           <tr><td><code>@validator</code></td><td><code>@field_validator</code></td></tr>
           <tr><td><code>const=True</code>, <code>regex=</code></td><td><code>Literal[...]</code>, <code>pattern=</code></td></tr>
         </table>
@@ -121,32 +127,33 @@ class IncidentOut(BaseModel):
     <h2><code>async def</code> is not faster. <code>gather</code> is.</h2>
   </div></header>
   <div class="body">
-    <svg class="dg" viewBox="0 0 1180 250" style="max-height:34vh">
-      <text x="10" y="30" class="t-acc" font-weight="700" font-size="15">await one, then the other</text>
-      <text x="10" y="50" class="t-faint" font-size="13">~0.4 s</text>
-      <rect class="box-r" x="230" y="15" width="300" height="40" rx="5"/>
-      <text x="380" y="41" text-anchor="middle" font-size="14">runbook wiki &#183; 0.2 s</text>
-      <rect class="box-r" x="530" y="15" width="300" height="40" rx="5"/>
-      <text x="680" y="41" text-anchor="middle" font-size="14">ticket system &#183; 0.2 s</text>
+    <svg class="dg" viewBox="0 0 1180 250" style="max-height:40vh">
+      <text x="10" y="32" class="t-acc" font-weight="700" font-size="20">await one, then other</text>
+      <text x="10" y="54" class="t-faint" font-size="17">~0.4 s</text>
+      <rect class="box-r" x="290" y="12" width="290" height="44" rx="5"/>
+      <text x="435" y="41" text-anchor="middle" font-size="18.5">runbook wiki &#183; 0.2 s</text>
+      <rect class="box-r" x="580" y="12" width="290" height="44" rx="5"/>
+      <text x="725" y="41" text-anchor="middle" font-size="18.5">ticket system &#183; 0.2 s</text>
 
-      <text x="10" y="112" class="t-good" font-weight="700" font-size="15">asyncio.gather(both)</text>
-      <text x="10" y="132" class="t-faint" font-size="13">~0.2 s</text>
-      <rect class="box-g" x="230" y="92" width="300" height="34" rx="5"/>
-      <text x="380" y="115" text-anchor="middle" font-size="14">runbook wiki &#183; 0.2 s</text>
-      <rect class="box-g" x="230" y="130" width="300" height="34" rx="5"/>
-      <text x="380" y="153" text-anchor="middle" font-size="14">ticket system &#183; 0.2 s</text>
+      <text x="10" y="112" class="t-good" font-weight="700" font-size="20">asyncio.gather(both)</text>
+      <text x="10" y="134" class="t-faint" font-size="17">~0.2 s</text>
+      <rect class="box-g" x="290" y="86" width="290" height="38" rx="5"/>
+      <text x="435" y="112" text-anchor="middle" font-size="18.5">runbook wiki &#183; 0.2 s</text>
+      <rect class="box-g" x="290" y="128" width="290" height="38" rx="5"/>
+      <text x="435" y="154" text-anchor="middle" font-size="18.5">ticket system &#183; 0.2 s</text>
 
-      <text x="10" y="210" class="t-bad" font-weight="700" font-size="15">time.sleep / requests</text>
-      <text x="10" y="230" class="t-faint" font-size="13">inside async def</text>
-      <rect class="box-r" x="230" y="190" width="300" height="40" rx="5"/>
-      <text x="380" y="216" text-anchor="middle" font-size="14">blocks the event loop</text>
-      <rect class="box" x="530" y="190" width="620" height="40" rx="5"/>
-      <text x="840" y="216" text-anchor="middle" class="t-dim" font-size="14">every other request on this worker waits too</text>
-      <path class="wire-faint dash" d="M230 5 V240 M530 5 V240 M830 5 V240"/>
+      <text x="10" y="210" class="t-bad" font-weight="700" font-size="20">time.sleep / requests</text>
+      <text x="10" y="232" class="t-faint" font-size="17">inside async def</text>
+      <rect class="box-r" x="290" y="190" width="290" height="44" rx="5"/>
+      <text x="435" y="219" text-anchor="middle" font-size="18.5">blocks the event loop</text>
+      <rect class="box" x="580" y="190" width="590" height="44" rx="5"/>
+      <text x="875" y="219" text-anchor="middle" class="t-dim" font-size="18.5">every other request on this worker waits too</text>
+      <path class="wire-faint dash" d="M290 4 V244 M580 4 V244 M870 4 V244"/>
     </svg>
     <div class="grid2">
-<pre class="sm">@router.get("/ask")
-<b>async def</b> ask(q: str, store: Store = Depends(get_store)):
+<pre>@router.get("/ask")
+<b>async def</b> ask(q: str,
+              store: Store = Depends(get_store)):
     runbooks, incidents = <b>await asyncio.gather</b>(
         sources.runbook_hits(store, q),
         sources.incident_hits(store, q),
@@ -172,22 +179,25 @@ class IncidentOut(BaseModel):
   <div class="body">
     <div class="grid-2-1 fill">
       <div class="card on">
-<pre class="sm"><i># tests/conftest.py</i>
+<pre><i># tests/conftest.py</i>
 @pytest.fixture
 def client(store):
-    <b>app.dependency_overrides[get_store] = lambda: store</b>   <i># this test's own store</i>
+    <i># this test's own store</i>
+    <b>app.dependency_overrides[get_store] = lambda: store</b>
     with <b>TestClient(app)</b> as c:
-        yield c                                            <i># fixture teardown after yield</i>
+        yield c          <i># teardown runs after yield</i>
     app.dependency_overrides.clear()
 
 def test_unknown_runbook_is_404(client):
     r = client.get("/api/runbooks/RB-999")
     assert r.status_code == 404
-    assert r.json() == {"detail": "runbook RB-999 not found"}
+    assert "RB-999" in r.json()["detail"]
 
 def test_ask_is_503_when_a_source_fails(client, store):
-    app.dependency_overrides[get_store] = lambda: <b>WikiDown(...)</b>
-    assert client.get("/api/ask?q=deploy").status_code == 503</pre>
+    app.dependency_overrides[get_store] = \
+        lambda: <b>WikiDown(...)</b>
+    r = client.get("/api/ask?q=deploy")
+    assert r.status_code == 503</pre>
       </div>
       <div class="card">
         <h3>Why this design</h3>
@@ -214,23 +224,23 @@ def test_ask_is_503_when_a_source_fails(client, store):
   <div class="body">
     <svg class="dg" viewBox="0 0 1180 140" style="max-height:20vh">
       <rect class="box-a" x="10" y="25" width="190" height="70" rx="7"/>
-      <text x="105" y="55" text-anchor="middle" class="t-acc" font-weight="700" font-size="15">Spec</text>
-      <text x="105" y="77" text-anchor="middle" class="t-dim" font-size="12.5">docs/api-spec.md</text>
+      <text x="105" y="55" text-anchor="middle" class="t-acc" font-weight="700" font-size="19.5">Spec</text>
+      <text x="105" y="77" text-anchor="middle" class="t-dim" font-size="16.2">docs/api-spec.md</text>
       <rect class="box-a" x="245" y="25" width="190" height="70" rx="7"/>
-      <text x="340" y="55" text-anchor="middle" class="t-acc" font-weight="700" font-size="15">Tests</text>
-      <text x="340" y="77" text-anchor="middle" class="t-dim" font-size="12.5">acceptance criteria</text>
+      <text x="340" y="55" text-anchor="middle" class="t-acc" font-weight="700" font-size="19.5">Tests</text>
+      <text x="340" y="77" text-anchor="middle" class="t-dim" font-size="16.2">acceptance criteria</text>
       <rect class="box-a" x="480" y="25" width="190" height="70" rx="7"/>
-      <text x="575" y="55" text-anchor="middle" class="t-acc" font-weight="700" font-size="15">House rules</text>
-      <text x="575" y="77" text-anchor="middle" class="t-dim" font-size="12.5">copilot-instructions.md</text>
+      <text x="575" y="55" text-anchor="middle" class="t-acc" font-weight="700" font-size="19.5">House rules</text>
+      <text x="575" y="77" text-anchor="middle" class="t-dim" font-size="16.2">copilot-instructions.md</text>
       <rect class="box-b" x="715" y="25" width="190" height="70" rx="7"/>
-      <text x="810" y="55" text-anchor="middle" class="t-blue" font-weight="700" font-size="15">Agent mode</text>
-      <text x="810" y="77" text-anchor="middle" class="t-dim" font-size="12.5">edit, run, read, fix</text>
+      <text x="810" y="55" text-anchor="middle" class="t-blue" font-weight="700" font-size="19.5">Agent mode</text>
+      <text x="810" y="77" text-anchor="middle" class="t-dim" font-size="16.2">edit, run, read, fix</text>
       <rect class="box-g" x="950" y="25" width="220" height="70" rx="7"/>
-      <text x="1060" y="55" text-anchor="middle" class="t-good" font-weight="700" font-size="15">You review</text>
-      <text x="1060" y="77" text-anchor="middle" class="t-dim" font-size="12.5">diff, then commit</text>
+      <text x="1060" y="55" text-anchor="middle" class="t-good" font-weight="700" font-size="19.5">You review</text>
+      <text x="1060" y="77" text-anchor="middle" class="t-dim" font-size="16.2">diff, then commit</text>
       <path class="wire-a" d="M200 60 H245 M435 60 H480 M670 60 H715 M905 60 H950"/>
       <path class="wire-faint dash" d="M1060 95 V112 H340 V95"/>
-      <text x="700" y="133" text-anchor="middle" class="t-faint" font-size="12">a review finding becomes a test, not a chat message</text>
+      <text x="700" y="133" text-anchor="middle" class="t-faint" font-size="15.6">a review finding becomes a test, not a chat message</text>
     </svg>
     <div class="grid3">
       <div class="card"><h3>Stage it</h3><p>Ask for <code>schemas.py</code> first and <b>stop</b>. Reviewing a

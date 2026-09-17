@@ -35,28 +35,28 @@
   <div class="body">
     <svg class="dg" viewBox="0 0 1180 230" style="max-height:32vh">
       <rect class="box" x="10" y="20" width="430" height="190" rx="8"/>
-      <text x="30" y="48" class="t-faint" font-size="13">Browser &#183; the page from GET /</text>
+      <text x="30" y="48" class="t-faint" font-size="16.9">Browser &#183; the page from GET /</text>
       <rect class="box-a" x="30" y="62" width="390" height="46" rx="5"/>
-      <text x="45" y="90" class="t-mono" font-size="13">&lt;form hx-get="/ui/ask" hx-target="#results"&gt;</text>
+      <text x="45" y="90" class="t-mono" font-size="16.9">&lt;form hx-get="/ui/ask" hx-target="#results"&gt;</text>
       <rect class="box-g" x="30" y="125" width="390" height="66" rx="5"/>
-      <text x="45" y="152" class="t-mono" font-size="13">&lt;div id="results"&gt;</text>
-      <text x="45" y="176" class="t-good" font-size="13">&#8592; fragment swapped in here</text>
+      <text x="45" y="152" class="t-mono" font-size="16.9">&lt;div id="results"&gt;</text>
+      <text x="45" y="176" class="t-good" font-size="16.9">&#8592; fragment swapped in here</text>
 
       <rect class="box-b" x="740" y="20" width="430" height="190" rx="8"/>
-      <text x="760" y="48" class="t-faint" font-size="13">FastAPI &#183; web.py</text>
-      <text x="760" y="85" class="t-mono" font-size="13">@router.get("/ui/ask")</text>
-      <text x="760" y="108" class="t-mono" font-size="13">async def ui_ask(request, q, store=...):</text>
-      <text x="792" y="131" class="t-mono t-dim" font-size="13">hits = await ...</text>
-      <text x="792" y="154" class="t-mono" font-size="13">return templates.TemplateResponse(</text>
-      <text x="824" y="177" class="t-mono" font-size="13">request, "_results.html", {...})</text>
+      <text x="760" y="48" class="t-faint" font-size="16.9">FastAPI &#183; web.py</text>
+      <text x="760" y="85" class="t-mono" font-size="16.9">@router.get("/ui/ask")</text>
+      <text x="760" y="108" class="t-mono" font-size="16.9">async def ui_ask(request, q, store=...):</text>
+      <text x="792" y="131" class="t-mono t-dim" font-size="16.9">hits = await ...</text>
+      <text x="792" y="154" class="t-mono" font-size="16.9">return templates.TemplateResponse(</text>
+      <text x="824" y="177" class="t-mono" font-size="16.9">request, "_results.html", {...})</text>
 
       <path class="wire-a" d="M420 85 H740"/>
       <polygon points="740,85 728,79 728,91" fill="var(--accent)"/>
-      <text x="580" y="75" text-anchor="middle" class="t-acc" font-size="13">GET /ui/ask?q=deploy</text>
+      <text x="580" y="75" text-anchor="middle" class="t-acc" font-size="16.9">GET /ui/ask?q=deploy</text>
       <path class="wire-b" d="M740 158 H420"/>
       <polygon points="420,158 432,152 432,164" fill="var(--accent-2)"/>
-      <text x="580" y="148" text-anchor="middle" class="t-blue" font-size="13">&lt;div class="hit"&gt;...&lt;/div&gt;</text>
-      <text x="580" y="182" text-anchor="middle" class="t-faint" font-size="12.5">HTML, not JSON &#183; no page reload</text>
+      <text x="580" y="148" text-anchor="middle" class="t-blue" font-size="16.9">&lt;div class="hit"&gt;...&lt;/div&gt;</text>
+      <text x="580" y="182" text-anchor="middle" class="t-faint" font-size="16.2">HTML, not JSON &#183; no page reload</text>
     </svg>
     <div class="grid3">
       <div class="card"><h3><code>hx-get</code> / <code>hx-post</code></h3><p>Any element can make a request &mdash;
@@ -79,11 +79,15 @@
     <div class="grid2 fill">
       <div class="card on">
         <h3>_results.html &mdash; a fragment</h3>
-<pre class="sm">&lt;p class="muted"&gt;Results for "<b>{{ q }}</b>"&lt;/p&gt;
+<pre>&lt;p class="muted"&gt;Results for "<b>{{ q }}</b>"&lt;/p&gt;
 <b>{% for h in runbooks %}</b>
 &lt;div class="hit"&gt;
   &lt;b&gt;{{ h.title }}&lt;/b&gt; score {{ h.score }}
-  &lt;ol&gt;{% for s in steps[h.runbook_id] %}&lt;li&gt;{{ s }}&lt;/li&gt;{% endfor %}&lt;/ol&gt;
+  &lt;ol&gt;
+  {% for s in steps[h.runbook_id] %}
+    &lt;li&gt;{{ s }}&lt;/li&gt;
+  {% endfor %}
+  &lt;/ol&gt;
 &lt;/div&gt;
 <b>{% else %}</b>
 &lt;p&gt;No runbook matched.&lt;/p&gt;
@@ -93,14 +97,17 @@
       </div>
       <div class="card">
         <h3>Forms, and one contract</h3>
-<pre class="sm">@router.post("/ui/incidents")
+<pre>@router.post("/ui/incidents")
 def ui_create(request: Request,
-              title: str = <b>Form("")</b>, severity: str = Form(""),
-              service: str = Form(""), store=Depends(get_store)):
+              title: str = <b>Form("")</b>,
+              severity: str = Form(""),
+              service: str = Form(""),
+              store=Depends(get_store)):
     try:
-        body = <b>IncidentIn</b>(title=title, severity=severity,
+        body = <b>IncidentIn</b>(title=title,
+                          severity=severity,
                           service=service)
-    except ValidationError as exc:
+    except ValidationError:
         return templates.TemplateResponse(
             request, "_error_row.html", {...})</pre>
         <ul style="margin-top:8px">

@@ -36,22 +36,22 @@
     <div class="grid2 fill">
       <div class="card">
         <h3>Literals and the everyday moves</h3>
-<pre class="sm">steps  = [<u>"check"</u>, <u>"rollback"</u>]         <i># list   ~ ArrayList / List&lt;T&gt;</i>
-owners = {<u>"payments"</u>: <u>"asha"</u>}          <i># dict   ~ HashMap (keeps insertion order)</i>
-tags   = {<u>"deploy"</u>, <u>"502"</u>}              <i># set    ~ HashSet</i>
-point  = (<u>"RB-101"</u>, 5)                   <i># tuple  ~ immutable, fixed shape</i>
+<pre>steps  = ["check", "rollback"]  <i># list  ~ ArrayList</i>
+owners = {"payments": "asha"}   <i># dict  ~ HashMap</i>
+tags   = {"deploy", "502"}      <i># set   ~ HashSet</i>
+point  = ("RB-101", 5)          <i># tuple ~ immutable</i>
 
-owners.get(<u>"auth"</u>, <u>"unassigned"</u>)        <i># no KeyError</i>
-<b>rb_id, score = point</b>                     <i># unpacking</i>
+owners.get("auth", "none")      <i># no KeyError</i>
+<b>rb_id, score = point</b>            <i># unpacking</i>
 first, *rest = steps
 for i, step in <b>enumerate</b>(steps, 1): ...
 for rb, hit in <b>zip</b>(runbooks, hits): ...
-tags <b>&amp;</b> {<u>"deploy"</u>, <u>"db"</u>}                   <i># {'deploy'} - set algebra</i>
-steps[<b>-1</b>], steps[<b>1:</b>]                     <i># last item, slice</i></pre>
+tags <b>&amp;</b> {"deploy", "db"}         <i># set algebra</i>
+steps[<b>-1</b>], steps[<b>1:</b>]            <i># last item, slice</i></pre>
       </div>
       <div class="card blue">
         <h3>From the standard library, not a framework</h3>
-<pre class="sm">from collections import Counter, defaultdict
+<pre>from collections import Counter, defaultdict
 
 Counter(<u>"deploy deploy rollback"</u>.split())
 <i># Counter({'deploy': 2, 'rollback': 1})</i>
@@ -114,7 +114,7 @@ for i in incidents:
     <div class="grid2 fill">
       <div class="card">
         <h3>Truthiness</h3>
-<pre class="sm"><i># falsy: None  False  0  0.0  ""  []  {}  set()</i>
+<pre><i># falsy: None  False  0  0.0  ""  []  {}  set()</i>
 name = user.get(<u>"name"</u>) <b>or</b> <u>"anonymous"</u>   <i># idiomatic</i>
 
 if <b>not</b> retries:        <i># BUG when 0 is a real value</i>
@@ -126,7 +126,7 @@ if retries <b>is None</b>:    <i># say what you mean</i></pre>
       </div>
       <div class="card blue">
         <h3>Type hints</h3>
-<pre class="sm">def search(store: Store, query: str,
+<pre>def search(store: Store, query: str,
            limit: int = 5) -&gt; list[Hit]: ...
 
 owner: str <b>| None</b> = None      <i># not Optional[str]</i>
@@ -152,7 +152,7 @@ counts: dict[str, int] = {}</pre>
     <div class="grid2 fill">
       <div class="card on">
         <h3>Value object and mutable record</h3>
-<pre class="sm">from dataclasses import dataclass, <b>field</b>
+<pre>from dataclasses import dataclass, <b>field</b>
 
 @dataclass(<b>frozen=True</b>, slots=True)
 class Money:
