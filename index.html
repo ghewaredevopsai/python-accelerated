@@ -7,47 +7,63 @@
 <style>
 :root{
   --bg:#0e1116; --bg-2:#141922; --panel:#1a2029; --line:#2f3846; --line-2:#435063;
-  --fg:#e9edf2; --fg-dim:#a6b1c0; --fg-faint:#717f91;
+  --fg:#e9edf2; --fg-dim:#b7c2d0; --fg-faint:#8794a6;
   --accent:#d98a3d; --accent-2:#6ea8fe; --good:#5fbf8f;
   --mono:ui-monospace,"JetBrains Mono",Consolas,"DejaVu Sans Mono",monospace;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
   --serif:ui-serif,Georgia,"Times New Roman",serif;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);line-height:1.5}
+/* Type matches the decks: readable across a room, not just on a laptop. */
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
+  font-size:21px;line-height:1.55;-webkit-text-size-adjust:100%}
 a{color:var(--accent-2);text-decoration:none}
 a:hover{text-decoration:underline}
-header.top{background:linear-gradient(150deg,#0e1116 0%,#1a2029 100%);border-bottom:2px solid var(--accent);padding:34px 24px 28px}
-.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
-header.top .tag{font-size:11.5px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:700}
-header.top h1{font-family:var(--serif);font-size:40px;margin:8px 0 10px;font-weight:600;line-height:1.1}
-header.top p{color:var(--fg-dim);max-width:760px;font-size:17px;margin:0}
-header.top .meta{margin-top:14px;font-size:13px;color:var(--fg-faint);display:flex;gap:18px;flex-wrap:wrap}
-section{padding:30px 0 6px}
-h2{font-family:var(--serif);font-size:25px;margin:0 0 6px;font-weight:600}
-h2 + .sub{color:var(--fg-faint);font-size:14.5px;margin:0 0 18px}
-.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
-.tier{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:15px 17px;display:flex;flex-direction:column}
+header.top{background:linear-gradient(150deg,#0e1116 0%,#1a2029 100%);border-bottom:2px solid var(--accent);padding:52px 24px 38px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+header.top .tag{font-size:15.5px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);font-weight:700}
+header.top h1{font-family:var(--serif);font-size:54px;margin:10px 0 16px;font-weight:600;line-height:1.1}
+header.top p{color:var(--fg-dim);max-width:60ch;font-size:22px;margin:0}
+header.top .meta{margin-top:24px;font-size:16.5px;color:var(--fg-faint);display:flex;
+  gap:10px 12px;flex-wrap:wrap;font-family:var(--mono)}
+header.top .meta span{padding:5px 14px;border:1px solid var(--line);border-radius:20px;
+  background:rgba(255,255,255,.02)}
+section{padding:44px 0 6px}
+h2{font-family:var(--serif);font-size:33px;line-height:1.15;margin:0 0 10px;font-weight:600}
+h2 + .sub{color:var(--fg-dim);font-size:20.5px;max-width:72ch;margin:0 0 26px}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:18px}
+.tier{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:18px 20px;display:flex;flex-direction:column}
 .tier:hover{border-color:var(--accent)}
-.tier .n{font-family:var(--mono);font-size:11.5px;letter-spacing:1.4px;color:var(--accent);font-weight:700}
-.tier h3{margin:5px 0 7px;font-size:18px}
+.tier .n{font-family:var(--mono);font-size:14.5px;letter-spacing:1.4px;color:var(--accent);font-weight:700}
+.tier h3{margin:7px 0 9px;font-size:23px;line-height:1.25}
 .tier h3 a{color:var(--fg)}
-.tier p{color:var(--fg-dim);font-size:14.5px;margin:0 0 10px;flex:1}
-.tier .foot{font-size:12.5px;color:var(--fg-faint);font-family:var(--mono);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:8px}
-table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:6px}
-th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-th{color:var(--accent);font-size:12px;letter-spacing:.8px;text-transform:uppercase}
-td{color:var(--fg-dim)}
+.tier p{color:var(--fg-dim);font-size:18.5px;line-height:1.45;margin:0 0 14px;flex:1}
+.tier .foot{font-size:14.5px;color:var(--fg-faint);font-family:var(--mono);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:8px}
+table{width:100%;border-collapse:collapse;font-size:19px;margin-top:6px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--accent);font-size:16px;letter-spacing:.8px;text-transform:uppercase}
+td{color:var(--fg-dim);line-height:1.42}
 td b{color:var(--fg)}
 tr:last-child td{border-bottom:none}
 .table-wrap{overflow-x:auto}
 code{font-family:var(--mono);font-size:.9em;color:var(--accent);background:rgba(217,138,61,.10);padding:1px 5px;border-radius:3px;border:1px solid rgba(217,138,61,.2)}
-.note{background:var(--panel);border-left:3px solid var(--accent-2);border-radius:0 5px 5px 0;padding:11px 16px;color:var(--fg-dim);font-size:15px;margin-top:14px}
+.note{background:var(--panel);border-left:3px solid var(--accent-2);border-radius:0 6px 6px 0;
+  padding:15px 20px;color:var(--fg-dim);font-size:19.5px;line-height:1.45;margin-top:18px}
 .note b{color:var(--fg)}
-footer{margin-top:38px;border-top:1px solid var(--line);background:#0a0d12;padding:20px 0 26px;font-size:13px;color:var(--fg-faint)}
+footer{margin-top:44px;border-top:1px solid var(--line);background:#0a0d12;padding:26px 0 34px;font-size:16.5px;line-height:1.6;color:var(--fg-faint)}
 footer a{color:var(--fg-dim)}
 footer .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-@media(max-width:640px){header.top h1{font-size:30px}}
+/* Narrow screens: step back down rather than letting a 54px heading wrap badly. */
+@media(max-width:880px){
+  body{font-size:18px}
+  .wrap{padding:0 20px}
+  header.top{padding:36px 20px 28px}
+  header.top h1{font-size:38px} header.top p{font-size:19px}
+  h2{font-size:26px} h2 + .sub{font-size:17.5px}
+  .tier h3{font-size:20px} .tier p{font-size:17px}
+  table{font-size:17px} .note{font-size:17.5px}
+  .tiers{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
