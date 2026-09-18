@@ -5,7 +5,7 @@
 
 ## Before you start
 
-- Missions 1 and 2 are green, or you copied `code/mission-1/` and `code/mission-2/` in.
+- Missions 1 and 2 are green, or you are on the `mission-3-start` tag.
 - `git add -A && git commit -m "before mission 3"`
 - Agent mode, new chat. Leave tool approvals at the default, so you approve each terminal command.
 

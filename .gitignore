@@ -14,13 +14,12 @@ venv/
 build/
 dist/
 
-# Checkpoint bundles and deck-check scratch files
-*.bundle
+# Deck-check scratch files
 presentation/.probe-*.html
 presentation/.canary*.html
 presentation/.h.html
 
-# Coverage, if anyone runs it over the practice suite
+# Coverage, if anyone runs it over the solutions
 .coverage
 .coverage.*
 htmlcov/

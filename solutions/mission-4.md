@@ -5,7 +5,7 @@
 
 ## Before you start
 
-- Missions 1 to 3 are green, or you copied `code/mission-1/` to `code/mission-3/` in.
+- Missions 1 to 3 are green, or you are on the `mission-4-start` tag.
 - `git add -A && git commit -m "before mission 4"`
 - Agent mode, new chat.
 

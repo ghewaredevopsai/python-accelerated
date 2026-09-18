@@ -8,7 +8,7 @@
 
 ## Before you start
 
-- Missions 1 to 4 are green (`python score.py` shows **54/56**), or you copied `code/mission-1/` to `code/mission-4/` in.
+- Missions 1 to 4 are green (`python score.py` shows **54/56**), or you are on the `mission-5-start` tag.
 - `git add -A && git commit -m "before mission 5"`
 
 ## 1. Apply the PR, as the engineer who clicked Merge

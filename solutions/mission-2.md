@@ -5,7 +5,7 @@
 
 ## Before you start
 
-- Mission 1 is green, or you copied `code/mission-1/` in.
+- Mission 1 is green, or you are on the `mission-2-start` tag.
 - `git add -A && git commit -m "before mission 2"`
 - Copilot Chat in **Agent** mode. Start a **new chat** for each step, so each prompt carries only its own context.
 
