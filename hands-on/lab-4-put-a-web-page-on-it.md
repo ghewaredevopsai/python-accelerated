@@ -13,7 +13,7 @@ vendored in `askops/static/`.
 
 ## Read first (3 minutes)
 
-- [`docs/web-spec.md`](../practice/docs/web-spec.md)
+- [`docs/web-spec.md`](https://github.com/ghewaredevopsai/askops/blob/main/docs/web-spec.md)
 - `askops/templates/base.html` &mdash; the layout and all the CSS; you should not need to write any style
 
 ## Do

@@ -5,7 +5,7 @@
 ## The situation
 
 After last week's wiki outage, a teammate asked the Copilot coding agent to make `/ask` "resilient". It
-opened [**PR #42**](../practice/review/PR-42.md). The description is reasonable, the diff is small, and a
+opened [**PR #42**](https://github.com/ghewaredevopsai/askops/blob/main/review/PR-42.md). The description is reasonable, the diff is small, and a
 colleague has already written *"LGTM"*.
 
 ## Do
@@ -55,7 +55,8 @@ colleague has already written *"LGTM"*.
    git commit -m "Return 503 when an /ask source fails, instead of an empty 200"
    ```
 
-   If you have a GitHub account: create a private repository, push, open a pull request, and request a
+   If you have a GitHub account: create a private repository of your own, push to it (not to `origin`,
+   which is the shared AskOps repository), open a pull request, and request a
    review from Copilot. Compare its comments with yours.
 
 ## Notice

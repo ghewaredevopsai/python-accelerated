@@ -4,7 +4,7 @@
 
 ## Do
 
-1. Make your copy and install it: [Make your own copy first](../practice/README.md#make-your-own-copy-first).
+1. Clone AskOps and install it: [Set up](https://github.com/ghewaredevopsai/askops#set-up).
 2. Run the scoreboard. **Almost everything should be red** (the one green check is the bundled htmx file).
 
    ```bash
@@ -30,7 +30,7 @@
   job is the part an agent cannot do for you: know what the code does, and decide whether it is right.
 - The tutor explains by **contrast with your language**, not from zero. That is the module's whole approach:
   you are not learning to program, you are learning where Python is *different*.
-- If `/tutor` does not appear in the chat, check that you opened **your copy** as the workspace root: the
+- If `/tutor` does not appear in the chat, check that you opened **your clone** as the workspace root: the
   prompt file lives in `.github/prompts/`.
 - `pip install -e ".[dev]"` installed your own package in *editable* mode: `import askops` works from
   anywhere in the venv, and edits take effect without reinstalling. It is the Python counterpart of a

@@ -1,8 +1,0 @@
-[
-  {"id": "INC-9001", "title": "Payments 502s after 14:00 release", "severity": "high", "service": "payments",
-   "opened_at": "2026-09-14T14:07:00", "runbook_id": "RB-101"},
-  {"id": "INC-9002", "title": "Slow logins in the morning peak", "severity": "medium", "service": "auth",
-   "opened_at": "2026-09-15T09:12:00", "runbook_id": "RB-201"},
-  {"id": "INC-9003", "title": "Batch report late for finance", "severity": "low", "service": "reporting",
-   "opened_at": "2026-09-16T06:30:00", "runbook_id": null}
-]

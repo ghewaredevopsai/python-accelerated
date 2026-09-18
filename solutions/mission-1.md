@@ -5,7 +5,7 @@
 
 ## Before you start
 
-- Your `askops` copy is open in VS Code as the workspace root, the venv is active, and `python score.py 1` runs.
+- Your `askops` clone is open in VS Code as the workspace root, the venv is active, and `python score.py 1` runs.
 - `/tutor` appears when you type `/` in Copilot Chat. If not, you opened the wrong folder.
 - Commit, so you can see each drill's change: `git add -A && git commit -m "before mission 1"`.
 

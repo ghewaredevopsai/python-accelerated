@@ -11,7 +11,7 @@ reading what it does.
 
 ## Read first (5 minutes)
 
-- [`docs/api-spec.md`](../practice/docs/api-spec.md), down to the Mission 5 line
+- [`docs/api-spec.md`](https://github.com/ghewaredevopsai/askops/blob/main/docs/api-spec.md), down to the Mission 5 line
 - `.github/copilot-instructions.md` &mdash; the rules the agent will be given
 - `askops/deps.py` and `askops/sources.py` &mdash; both complete. Why is `get_store` a function and not a variable?
 

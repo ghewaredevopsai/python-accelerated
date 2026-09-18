@@ -1,7 +1,7 @@
 # Six labs, one app
 
 Hands-on labs for the **Python Accelerated** module. Every lab builds the same application,
-[**AskOps**](../practice/README.md), from a pile of failing tests to a running web app, in about
+[**AskOps**](https://github.com/ghewaredevopsai/askops), from a pile of failing tests to a running web app, in about
 two and a half hours of hands-on time.
 
 ## How these labs work
@@ -18,8 +18,8 @@ two and a half hours of hands-on time.
     You direct; it types; you review every diff.
 - **Read before you run.** Every lab has a *read first* step. Reviewing Python you did not write is the
   skill this module is really about.
-- **Nobody falls behind.** Behind at the start of a lab? Copy the earlier missions from
-  [`../solutions/`](../solutions/README.md) and start the next mission green. Solve it with Copilot first, then compare.
+- **Nobody falls behind.** Behind at the start of a lab? Switch to its checkpoint tag
+  ([Stuck?](https://github.com/ghewaredevopsai/askops#stuck)) and start the next mission green. Solve it with Copilot first, then compare.
 - **Copilot's output varies.** Two people running the same prompt get different code. The tests decide
   what is correct, not the transcript you are shown.
 
@@ -36,7 +36,7 @@ two and a half hours of hands-on time.
 
 ## Getting started
 
-Follow [Make your own copy first](../practice/README.md#make-your-own-copy-first), then Lab 0.
+Follow [Set up](https://github.com/ghewaredevopsai/askops#set-up) in the AskOps repository, then Lab 0.
 
 **You need:** Python 3.12 or newer (3.14 recommended), git, VS Code with GitHub Copilot signed in (a seat
 that includes agent mode), and access to PyPI for `pip install`. A GitHub account for Lab 5's pull

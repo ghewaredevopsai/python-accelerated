@@ -12,10 +12,12 @@ python-accelerated/
   python-learning-outcomes.md        what you will be able to do
   presentation/                      6 slide decks, one per tier
   hands-on/                          6 labs - start with hands-on/README.md
-  practice/                          AskOps, the application every lab builds (copy it out first)
   solutions/                         one working solution per mission - solve with Copilot first, compare after
   assets/                            slide theme and runner
 ```
+
+The labs are done in **AskOps**, the application every lab builds. It is its own repository,
+[`ghewaredevopsai/askops`](https://github.com/ghewaredevopsai/askops): clone it in Lab 0.
 
 ## The tiers
 
@@ -56,7 +58,7 @@ index, **N** for notes, **F** for fullscreen, **Esc** to close an overlay.
 - **Read the PR.** Every tier ends with a short diff hiding one Python trap. Decide merge or block before anyone
   explains it.
 - **Nobody falls behind.** A solution for every mission is in [`solutions/`](solutions/README.md). Solve with
-  Copilot first, then compare, or copy the earlier missions to start the next one green.
+  Copilot first, then compare, or switch to AskOps's checkpoint tag to start the next one green.
 
 ---
 

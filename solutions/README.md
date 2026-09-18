@@ -19,31 +19,33 @@ prompts, with what to check after each one. The finished code is also here, for 
   agent (the spec, the tests, "do not modify tests"), not the wording.
 - **Copilot's output varies.** The same prompt gives different code on different runs. The tests decide what is
   correct, so the code you get does not have to match `code/`.
-- **Fell behind?** Copy the finished code and start the next mission green (below).
+- **Fell behind?** Switch to a checkpoint tag and start the next mission green (below).
 
 ## Compare with yours
 
+From your AskOps clone, diff your file against the tag that has the mission solved (`mission-3-start` has
+mission 2 solved):
+
 ```bash
-git diff --no-index askops/store.py <repo>/solutions/code/mission-2/askops/store.py
+git diff mission-3-start -- askops/store.py
 ```
 
-`<repo>` is where you cloned this repository. Where they differ, decide which one you would rather maintain.
+Where they differ, decide which one you would rather maintain.
 
 ## Catch up to a mission
 
-The code stacks: to start mission 4 green you need missions 1 to 3. Copying **replaces your files**, so commit
-your own work first, and do it on a branch:
+The code stacks: to start mission 4 green you need missions 1 to 3. Your AskOps clone has a **checkpoint tag**
+for each mission, `mission-N-start`, with every mission before N solved. Commit your own work first, then switch:
 
 ```bash
 cd ~/askops
 git add -A && git commit -m "my work so far"
-git switch -c catch-up
-for m in 1 2 3; do cp -r <repo>/solutions/code/mission-$m/. .; done      # everything before mission 4
-python score.py                                                            # missions 1-3 green
+git switch -c catch-up mission-4-start       # missions 1-3 solved
+python score.py                              # 47/56
 ```
 
-On Windows, copy the contents of each `code/mission-N` folder over your copy the same way, in order. Expected
-scoreboard after copying missions 1 to N: **20, 34, 47, 54, 56** of 56.
+Expected scoreboard at `mission-2-start` to `mission-5-start`, then `mission-5-done`: **20, 34, 47, 54, 56** of 56.
+The tags hold the same code as `code/` here.
 
 ## Mission 5
 

@@ -100,7 +100,7 @@ Write a commit message for the staged changes: a subject under 72 characters tha
 git commit          # paste the message, edit it until you agree with every word
 ```
 
-With a GitHub account: create a private repository, `git remote add origin <url>`, `git push -u origin HEAD`, open
+With a GitHub account: create a private repository, `git remote add mine <url>`, `git push -u mine HEAD`, open
 a pull request, and request a review from Copilot.
 
 ## Done
