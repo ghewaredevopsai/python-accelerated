@@ -1,4 +1,6 @@
-# Trainer-only material is kept outside this repository. Never add it here.
+# Trainer-only material is kept outside this repository, in ../python-accelerated-trainer/.
+# Unlike the newer modules, which ship trainer/ inside the repo, this one cannot: its
+# labs are scored, and the speaker notes carry the Read-the-PR answers.
 CLAUDE.md
 trainer/
 
@@ -15,6 +17,13 @@ dist/
 # Checkpoint bundles and deck-check scratch files
 *.bundle
 presentation/.probe-*.html
+presentation/.canary*.html
+presentation/.h.html
+
+# Coverage, if anyone runs it over the practice suite
+.coverage
+.coverage.*
+htmlcov/
 
 # Editors and OS
 .vscode/
